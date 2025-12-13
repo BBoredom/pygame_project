@@ -1,0 +1,2 @@
+TO RUN THE PROGMRAMME IN TERMINAL
+    uv run main.py
