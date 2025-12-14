@@ -2,6 +2,8 @@ import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
@@ -10,9 +12,19 @@ def main():
     # Empty groups to be created before game loop
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
     # add Player class before the player object instance is created
     Player.containers = (updatable, drawable)
+
+    # add asteroids class to asteroids, updatable and drawable
+    Asteroid.containers = (asteroids, updatable, drawable)
+
+    # add AsteroidField class to updatable group as it is not drawable
+    AsteroidField.containers = (updatable, )
+
+    # Create AsteroidField object
+    asteroidfield = AsteroidField()
 
     # Player position
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -35,6 +47,7 @@ def main():
         for thing in drawable:
             thing.draw(screen)
         pygame.display.flip()
+
         # limiting the framerate to 60 FPS
         dt = clock.tick(60) / 1000
 
