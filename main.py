@@ -5,6 +5,7 @@ from logger import log_state, log_event
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 def main():
     pygame.init()
@@ -14,14 +15,18 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     # add Player class before the player object instance is created
     Player.containers = (updatable, drawable)
 
-    # add asteroids class to asteroids, updatable and drawable
+    # add Asteroids class to asteroids, updatable and drawable
     Asteroid.containers = (asteroids, updatable, drawable)
 
-    # add AsteroidField class to updatable group as it is not drawable
+    # set containers for Shot class to new group like with Plater and Asteroid Class
+    Shot.containers = (shots, updatable, drawable)
+
+    # add AsteroidField class to updatable group as it is not drawable (make it a tuple by ending with a comma)
     AsteroidField.containers = (updatable, )
 
     # Create AsteroidField object
